@@ -6,7 +6,7 @@ use cortex_m_rt::entry;
 //use panic_halt as _;
 
 use panic_rtt_target as _;
-use rtt_target::{rprint, rprintln, rtt_init_print};
+use rtt_target::{rprintln, rtt_init_print};
 
 use microbit::{board::Board, display::blocking::Display, hal::prelude::*};
 
@@ -18,13 +18,13 @@ fn main() -> ! {
     rtt_init_print!();
     rprintln!("Hello World from microbit v2");
     let mut matrix = [
-        [1, 0, 0, 0, 0],
+        [1u8, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0],
     ];
-    let mut board = Board::take().unwrap();
+    let board = Board::take().unwrap();
 
     let mut timer = microbit::hal::Timer::new(board.TIMER0);
     // create the Display
@@ -35,8 +35,8 @@ fn main() -> ! {
     let mut x_iter = 1;
     let mut y_iter = 0;
     loop {
-        let old_x: i32 = x;
-        let old_y: i32 = y;
+        let old_x: i8 = x;
+        let old_y: i8 = y;
 
         display.show(&mut timer, matrix, 128);
         display.clear();
